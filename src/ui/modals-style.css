@@ -86,3 +86,72 @@
 #create-project-btn:active {
     background-color: var(--buttonActiveColor);
 }
+
+
+#warning-modal{
+    width: 450px;
+    height: 235px;
+    border-color: var(--cardBgColor);
+    border: var(--cardBorderStyle);
+    box-shadow: var(--boxShadowStyle);
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    padding: 30px;
+}
+
+#warning-modal > span{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#warning-modal > p {
+    font-size: 21px;
+}
+
+#warning-modal > div{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+#cancel,
+#delete {
+    font-family: var(--font);
+    width: 88px;
+    height: 28px;
+    border-radius: 8px;
+    border: var(--cardBorderStyle);
+    font-size: 16px;
+    color: white;
+}
+
+
+#cancel{
+    background-color: var(--neutral);
+}
+
+#cancel:hover{
+    cursor: pointer;
+    background-color: #5c626d;
+}
+
+#cancel:active{
+    box-shadow: none;
+    background-color: #4c515a;
+}
+
+#delete {
+    background-color: var(--red);
+    font-weight: bold;
+}
+
+#delete:hover {
+    background-color: var(--redHover);
+    cursor: pointer;
+}
+
+#delete:active {
+    background-color: var(--redActive);
+}

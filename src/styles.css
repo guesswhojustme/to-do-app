@@ -28,8 +28,12 @@
     --green: #10B981;
     --yellow: #F59E0B;
     --red: #EF4444;
+    --redHover: #d83e3e;
+    --redActive: #be3737;
     --white: #FFFFFF;
     --neutral: #6B7280;
+    --neutralHover: #5c626d;
+    --neutralActive: #4c515a;
     --noteCardColor: #333333;
     --buttonIdleColor: #3B82F6;
     --buttonHoverColor: #2563EB;
@@ -152,5 +156,36 @@ dialog::backdrop {
           /* Optional: blurs the background */
 }
 
+#projects-container{
+    margin-top: 20px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
 
+#projects-container > div > div {
+    display: flex;
+    gap: 5px;
+}
 
+#projects-container > div{
+    width: 280px;
+    height: 35px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#projects-container > div:hover{
+    background-color: var(--sideNavHoverColor);
+    cursor: default;
+}
+
+#projects-container > div:active{
+    background-color: var(--sideNavActiveColor);
+}
