@@ -29,7 +29,11 @@
         {
             test: /\.(png|svg|jpg|woff2|woff)$/i,
             type: "asset/resource",
-    }
+        },
+        {
+            test: /\.html$/i,
+            use: ["html-loader"],
+      }
     ],
   },
  };

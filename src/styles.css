@@ -1,3 +1,133 @@
-body {
-  background-color: rebeccapurple;
+@font-face {
+    font-family: 'Inter 28pt';
+    src: url('utils/fonts/Inter28pt-Regular.woff2') format('woff2'),
+        url('utils/fonts/Inter28pt-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
+
+@font-face {
+    font-family: 'Inter 28pt';
+    src: url('utils/fonts/Inter28pt-Bold.woff2') format('woff2'),
+        url('utils/fonts/Inter28pt-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+:root{
+    --font: "Inter 28pt";
+    --backGroundColor: #F9FAFB;
+    --cardBgColor: #FFFFFF;
+    --cardBorderColor: #E5E7EB;
+    --primaryTextColor: #111827;
+    --secondaryTextColor: #6B7280;
+    --disableTextColor: #9CA3AF;
+    --green: #10B981;
+    --yellow: #F59E0B;
+    --red: #EF4444;
+    --white: #FFFFFF;
+    --neutral: #6B7280;
+    --noteCardColor: #333333;
+    --buttonIdleColor: #3B82F6;
+    --buttonHoverColor: #2563EB;
+    --buttonActiveColor: #1D4ED8;
+    --sideNavHoverColor: #F2F2F2;
+    --sideNavActiveColor: #E5E7EB;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font);
+    background-color: var(--backGroundColor);
+    /* width: 1440px;
+    height: 1024px; */
+    display: flex;
+    padding: 10px;
+}
+
+#title {
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+}
+
+span{
+    color: var(--primaryTextColor);
+    font-size: 20px;
+}
+
+#sideNav {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    height: 940px;
+    border: 1px solid var(--cardBorderColor);
+    background-color: var(--cardBgColor);
+    border-radius: 16px;
+    padding: 10px;
+}
+
+#sideNav:first-child{
+    padding: 30px;
+}
+
+nav{
+    margin-top: 55px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+nav > div {
+    width: 280px;
+    height: 35px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+nav > div:hover{
+    background-color: var(--sideNavHoverColor);
+    cursor: pointer;
+}
+
+nav > div > div {
+    display: flex;
+    gap: 5px;
+}
+
+#project-header{
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--primaryTextColor);
+}
+
+#project-tab{
+    width: 300px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+#addProject_icon {
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#addProject_icon:hover{
+    background-color: var(--sideNavHoverColor);
+} 

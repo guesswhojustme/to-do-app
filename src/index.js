@@ -1,3 +1,5 @@
 import "./styles.css";
+import { test } from "./ui/to-do-card.js";
+import { sideNavControl } from "./controller.js";
 
-console.log("hello world");
+sideNavControl();
