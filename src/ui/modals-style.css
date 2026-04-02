@@ -1,0 +1,88 @@
+
+#new-project-modal{
+    width: 450px;
+    height: 235px;
+    background-color: var(--modalBgColor);
+    border: var(--cardBorderStyle);
+    border-radius: 16px;
+    box-shadow: var(--boxShadowStyle);
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+#new-project-modal > span{
+    color: var(--primaryTextColor);
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#new-project-modal > span + div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#new-project-modal > span + div > label {
+    font-size: 21px;
+    color: var(--primaryTextColor);
+}
+
+#new-project-title{
+    width: 370px;
+    height: 58px;
+    background-color: var(--cardBgColor);
+    border: var(--cardBorderStyle);
+    border-radius: 8px;
+    font-size: 26px;
+}
+
+#new-project-modal > span + div + div {
+    display: flex;
+    gap: 20px;
+    width: 370px;
+    justify-content: flex-end;
+}
+
+
+
+#cancel-project-btn,
+#create-project-btn {
+    font-family: var(--font);
+    width: 88px;
+    height: 28px;
+    border-radius: 8px;
+    border: var(--cardBorderStyle);
+    font-size: 16px;
+    color: white;
+}
+
+#cancel-project-btn{
+    background-color: var(--neutral);
+}
+
+#cancel-project-btn:hover{
+    cursor: pointer;
+    background-color: #5c626d;
+}
+
+#cancel-project-btn:active{
+    box-shadow: none;
+    background-color: #4c515a;
+}
+
+#create-project-btn {
+    background-color: var(--buttonIdleColor);
+    font-weight: bold;
+}
+
+#create-project-btn:hover {
+    background-color: var(--buttonHoverColor);
+    cursor: pointer;
+}
+
+#create-project-btn:active {
+    background-color: var(--buttonActiveColor);
+}

@@ -1,12 +1,18 @@
+import { createProjectModal } from "./ui/modals.js";
+
 export function sideNavControl(){
     const addProjectIcon = document.getElementById('addProject_icon')
     const nav = document.querySelector('nav');
-
+    const modalObj = createProjectModal();
+    document.body.appendChild(modalObj.dialog);
 
     addProjectIcon.addEventListener('click', () => {
         console.log("add project icon has been clicked");
+        modalObj.openModal();
     });
 
+    
+    
     nav.addEventListener('click', (event) => {
         const tabs = event.target;
 
