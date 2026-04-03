@@ -1,4 +1,6 @@
-
+import { createProj } from "../data/data.js";
+import { addProjectWrapperAction } from "../controller.js";
+import { projectData, saveProjData } from "../data/data.js";
 
 export function createProjectModal() {
     // 1. Create the Dialog Container
@@ -75,6 +77,19 @@ export function createProjectModal() {
     createBtn.id = 'create-project-btn';
     createBtn.textContent = 'create';
 
+    createBtn.addEventListener('click', () => {
+        const obj = {
+            title: input.value,
+            id:  crypto.randomUUID()
+        }
+        projectData.push(obj)
+        saveProjData();
+        createProj(obj.title, obj.id);
+        closeModal();
+        addProjectWrapperAction();
+        input.value = '';
+    })
+
     // Shared Button Styles
     const applySharedBtnStyles = (btn) => {
         Object.assign(btn.style, {
@@ -130,8 +145,6 @@ export function createProjectModal() {
     return { dialog, openModal, closeModal };
 }
 
-
-
 export function createWarningModal() {
     // 1. Create the Dialog Container
     const dialog = document.createElement('dialog');
@@ -185,6 +198,12 @@ export function createWarningModal() {
     const deleteBtn = document.createElement('button');
     deleteBtn.id = 'delete';
     deleteBtn.textContent = 'delete';
+    
+
+    // deleteBtn.addEventListener('click', () =>  {
+    //     confirm = true;
+    //     closeModal();
+    // })
 
     // Shared Button Styles
     const applyBtnStyles = (btn) => {
@@ -239,6 +258,6 @@ export function createWarningModal() {
             dialog.style.display = 'flex';
             dialog.showModal();
         },
-        close: closeModal
+        close: closeModal,
     };
 }

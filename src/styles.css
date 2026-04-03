@@ -53,8 +53,8 @@
 body{
     font-family: var(--font);
     background-color: var(--backGroundColor);
-    /* width: 1440px;
-    height: 1024px; */
+    width: 1440px;
+    height: 1024px;
     display: flex;
     gap: 25px;
 }
@@ -142,18 +142,10 @@ nav > div > div {
     background-color: var(--sideNavHoverColor);
 } 
 
-/* dialog {
-  border: none;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: var(--boxShadowStyle);
-  width: 400px;
-} */
 
 /* Styling the dimmed background */
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.2); /* Black with 70% opacity */
-          /* Optional: blurs the background */
 }
 
 #projects-container{
@@ -165,12 +157,12 @@ dialog::backdrop {
     
 }
 
-#projects-container > div > div {
+.project-wrapper > div {
     display: flex;
     gap: 5px;
 }
 
-#projects-container > div{
+.project-wrapper{
     width: 280px;
     height: 35px;
     border-radius: 8px;
@@ -181,11 +173,20 @@ dialog::backdrop {
     padding-right: 10px;
 }
 
-#projects-container > div:hover{
+.project-wrapper:hover{
     background-color: var(--sideNavHoverColor);
     cursor: default;
 }
 
-#projects-container > div:active{
+.project-wrapper:active{
     background-color: var(--sideNavActiveColor);
+}
+
+#notice{
+    font-size: 32px;
+    color: var(--disableTextColor);
+    font-weight: normal;
+    position: absolute;
+    top: 4in;
+    right: 7in;
 }
