@@ -1,10 +1,14 @@
 import { createProjectModal, createWarningModal } from "./ui/modals.js";
 import { projectData } from "./data/data.js";
+import { createToDoControl } from "./ui/to-do-page.js";
+import { createNoteControl } from "./ui/note-page.js";
 import deleteIcon from "./utils/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
 const projectPage = document.getElementById('project-page')
-const wrappers = document.querySelectorAll('.project-wrapper');
+const toDopage = document.getElementById('to-do-page-container');
+const notePage = document.getElementById('note-page-container');
+const notice = document.querySelector('.notice');
 
 const img = document.createElement('img');
 img.src = deleteIcon;
@@ -42,6 +46,7 @@ img.addEventListener('click', () => {
 export function addProjectWrapperAction() {
         console.log('addProjectWrapper is triggerd');
         const wrappers = document.querySelectorAll('.project-wrapper');
+        let once = true;
         wrappers.forEach(div => {
             console.log(div);
             div.addEventListener('mouseenter', () => {
@@ -55,9 +60,29 @@ export function addProjectWrapperAction() {
                 // because the modal needs it!
             });
             div.addEventListener('click', () => {
-                while (projectPage.firstChild){
-                    projectPage.removeChild(projectPage.firstChild)
+                if(notice.firstChild){
+                    notice.remove();
                 }
+
+                while (toDopage.firstChild){
+                    toDopage.removeChild(toDopage.firstChild)
+                }
+
+                while (notePage.firstChild){
+                    notePage.removeChild(notePage.firstChild)
+                }
+
+                const toDoControl = createToDoControl();
+                toDopage.append(toDoControl);
+
+                const noteControl = createNoteControl();
+                notePage.append(noteControl);
+
+                // const span = document.createElement('span')
+                // span.textContent = div.id;
+
+                // projectPage.append(span);
+
                 console.log(div.id);
                 wrappers.forEach(div => {
                     if(div.style.backgroundColor){

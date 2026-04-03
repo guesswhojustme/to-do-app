@@ -190,3 +190,155 @@ dialog::backdrop {
     top: 4in;
     right: 7in;
 }
+
+#project-page{
+    display: flex;
+    gap: 25px;
+}
+
+#to-do-page-container{
+    width: 680px;
+    height: 940px;
+    display: flex;
+    flex-direction: column;
+}
+
+#to-do-control{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#to-do-control > h1{
+    font-size: 26px;
+    color: var(--primaryTextColor);
+}
+
+#to-do-page-btn-container > button{
+    width: 40px;
+    height: 15px;
+    border-radius: 16px;
+    border: none;
+}
+
+#to-do-page-btn-container{
+    display: flex;
+    gap: 7px;
+    position: relative;
+    top: 20px;
+}
+
+#add-to-do{
+    width: 46px;
+    height: 32px;
+    position: relative;
+    bottom: 16px;
+    font-size: 30px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    background-color: var(--buttonIdleColor);
+    margin-left: 5px;
+}
+
+#add-to-do:hover{
+    cursor: pointer;
+    background-color: var(--buttonHoverColor);
+}
+
+#add-to-do:active{
+    background-color: var(--buttonActiveColor);
+}
+
+#neutral{
+    background-color: var(--neutral);
+}
+
+#neutral:hover{
+    background-color: var(--neutralHover);
+    cursor: pointer;
+}
+
+#neutral:active{
+    background-color: var(--neutralActive);
+}
+
+#high{
+    background-color: var(--red);
+}
+
+#high:hover{
+    background-color: var(--redHover);
+    cursor: pointer;
+}
+
+#high:active{
+    background-color: var(--redActive);
+}
+
+#medium {
+    background-color: var(--yellow);
+}
+
+#medium:hover {
+    background-color:#e2940c;
+    cursor: pointer;
+}
+
+#medium:active {
+    background-color: #ce8609;
+}
+
+
+#low{
+    background-color: var(--green);
+}
+
+#low:hover{
+    background-color: #10b07a;
+    cursor: pointer;
+}
+
+#low:active{
+    background-color: #0e9d6d;
+    cursor: pointer;
+}
+
+#note-page-container{
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+}
+
+#note-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#note-control > h1 {
+    font-size: 26px;
+    color: var(--primaryTextColor);
+}
+
+#add-note{
+    width: 46px;
+    height: 32px;
+    font-size: 30px;
+    border-radius: 8px;
+    position: relative;
+    top: 5.5px;
+    border: none;
+    color: white;
+    background-color: var(--buttonIdleColor);
+    margin-left: 5px;
+}
+
+#add-note:hover{
+    cursor: pointer;
+    background-color: var(--buttonHoverColor);
+}
+
+#add-note:active{
+    background-color: var(--buttonActiveColor);
+}

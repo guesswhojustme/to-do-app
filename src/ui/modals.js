@@ -84,7 +84,6 @@ export function createProjectModal() {
         }
         projectData.push(obj)
         localStorage.setItem('items', JSON.stringify(projectData))
-        // saveProjectData(projectData)
         createProj(obj.title, obj.id);
         closeModal();
         addProjectWrapperAction();
