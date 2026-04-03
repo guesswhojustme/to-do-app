@@ -1,6 +1,6 @@
 import { createProj } from "../data/data.js";
 import { addProjectWrapperAction } from "../controller.js";
-import { projectData, saveProjData } from "../data/data.js";
+import { projectData } from "../data/data.js";
 
 export function createProjectModal() {
     // 1. Create the Dialog Container
@@ -83,7 +83,8 @@ export function createProjectModal() {
             id:  crypto.randomUUID()
         }
         projectData.push(obj)
-        saveProjData();
+        localStorage.setItem('items', JSON.stringify(projectData))
+        // saveProjectData(projectData)
         createProj(obj.title, obj.id);
         closeModal();
         addProjectWrapperAction();

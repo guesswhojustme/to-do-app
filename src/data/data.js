@@ -3,6 +3,7 @@ import { addProjectWrapperAction } from '../controller.js';
 
 export let projectData = JSON.parse(localStorage.getItem('items')) || [];
 
+
 export function renderProjectData(){
     const projectContainer = document.getElementById('projects-container');
     projectContainer.innerHTML = '';
@@ -14,9 +15,6 @@ export function renderProjectData(){
     addProjectWrapperAction();
 }
 
-export function saveProjData(){
-    localStorage.setItem('items', JSON.stringify(projectData));
-}
 
 export function createProj(title, id){
     const projectContainer = document.getElementById('projects-container');

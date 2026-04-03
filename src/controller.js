@@ -1,5 +1,5 @@
 import { createProjectModal, createWarningModal } from "./ui/modals.js";
-import { projectData, saveProjData  } from "./data/data.js";
+import { projectData } from "./data/data.js";
 import deleteIcon from "./utils/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
@@ -22,13 +22,18 @@ img.addEventListener('click', () => {
         
         // Use { once: true } so we don't stack up listeners every time we click
         warningModalObj.deleteBtn.addEventListener('click', () => {
-            const filtered = projectData.filter(items => items.id !== currentTargetDiv.id )
-            projectData.push(filtered);
-            localStorage.setItem('items', JSON.stringify(filtered));
             if (currentTargetDiv) {
+                const index = projectData.findIndex(item => item.id === currentTargetDiv.id);
+                if (index !== -1) {
+                    // 2. Remove 1 item at that index
+                    projectData.splice(index, 1); 
+                    
+                    // 3. Save the now-shorter array
+                    localStorage.setItem('items', JSON.stringify(projectData));
+                }
                 currentTargetDiv.remove();
                 warningModalObj.close();
-                 // Clean up after deletion
+                currentTargetDiv = null;// Clean up after deletion
             }
         }, { once: true });
 });
