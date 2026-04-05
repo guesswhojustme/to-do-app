@@ -1,4 +1,4 @@
-import { createProj } from "../data/data.js";
+import { createProj } from "./project-card.js";
 import { addProjectWrapperAction } from "../controller.js";
 import { projectData } from "../data/data.js";
 

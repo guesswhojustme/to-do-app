@@ -2,10 +2,9 @@ import { createProjectModal, createWarningModal } from "./ui/modals.js";
 import { projectData } from "./data/data.js";
 import { createToDoControl } from "./ui/to-do-page.js";
 import { createNoteControl } from "./ui/note-page.js";
-import deleteIcon from "./utils/svgs/delete_icon.svg"
+import deleteIcon from "./assets/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
-const projectPage = document.getElementById('project-page')
 const toDopage = document.getElementById('to-do-page-container');
 const notePage = document.getElementById('note-page-container');
 const notice = document.querySelector('.notice');
@@ -46,7 +45,6 @@ img.addEventListener('click', () => {
 export function addProjectWrapperAction() {
         console.log('addProjectWrapper is triggerd');
         const wrappers = document.querySelectorAll('.project-wrapper');
-        let once = true;
         wrappers.forEach(div => {
             console.log(div);
             div.addEventListener('mouseenter', () => {
@@ -72,11 +70,10 @@ export function addProjectWrapperAction() {
                     notePage.removeChild(notePage.firstChild)
                 }
 
-                const toDoControl = createToDoControl();
-                toDopage.append(toDoControl);
+                createToDoControl();
 
-                const noteControl = createNoteControl();
-                notePage.append(noteControl);
+                createNoteControl();
+                
 
                 // const span = document.createElement('span')
                 // span.textContent = div.id;

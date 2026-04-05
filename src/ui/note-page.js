@@ -34,7 +34,7 @@ export function createNoteControl() {
         fontSize: '30px',
         borderRadius: '8px',
         position: 'relative',
-        top: '3px',
+        top: '5px',
         border: 'none',
         color: 'white',
         backgroundColor: 'var(--buttonIdleColor)',
@@ -58,6 +58,7 @@ export function createNoteControl() {
 
     // 5. Assemble and Return
     noteControl.append(h1, addNoteBtn);
-
-    return noteControl;
+    const notePage = document.getElementById('note-page-container');
+    notePage.append(noteControl);
+    
 }

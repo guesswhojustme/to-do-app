@@ -89,5 +89,6 @@ export function createToDoControl() {
     // 6. Assemble everything
     toDoControl.append(h1, btnContainer);
 
-    return toDoControl;
+    const toDopage = document.getElementById('to-do-page-container');
+    toDopage.append(toDoControl);
 }
