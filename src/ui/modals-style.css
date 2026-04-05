@@ -155,3 +155,125 @@
 #delete:active {
     background-color: var(--redActive);
 }
+
+#new-todo-list-modal{
+    display: flex;
+    flex-direction: column;
+    width: 607px;
+    height: 500px;
+    background-color: var(--modalBgColor);
+    border: var(--cardBorderStyle);
+    border-radius: 16px;
+    box-shadow: var(--boxShadowStyle);
+    padding-left: 45px;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+#new-todo-list-modal > span {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#todo-title{
+    width: 505px;
+    height: 67px;
+    border: var(--cardBorderStyle);
+    outline: none;
+    font-family: var(--font);
+    font-size: 29px;
+    color: var(--primaryTextColor);
+    border-radius: 8px;
+}
+
+#todo-description{
+    width: 505px;
+    height: 200px;
+    border: var(--cardBorderStyle);
+    outline: none;
+    resize: none;
+    font-family: var(--font);
+    font-size: 19px;
+    color: var(--primaryTextColor);
+    border-radius: 8px;
+}
+
+#date-priority-wrapper{
+    width: 505px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+#date-priority-wrapper > div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#date-priority-wrapper > div > label{
+    color: var(--secondaryTextColor);
+}
+
+#todo-dt{
+    width: 119px;
+    height: 28px;
+    border-radius: 7px;
+    border: var(--cardBorderStyle);
+    font-family: var(--font);
+}
+
+#priority-lvl {
+    width: 90px;
+    height: 28px;
+    border-radius: 7px;
+    border: var(--cardBorderStyle);
+    font-family: var(--font);
+}
+
+
+#cancel-todo-btn,
+#create-todo-btn {
+    font-family: var(--font);
+    width: 88px;
+    height: 28px;
+    border-radius: 8px;
+    border: var(--cardBorderStyle);
+    font-size: 16px;
+    color: white;
+}
+
+#todo-modal-btn-wrapper{
+    display: flex;
+    gap: 20px;
+    width: 505px;
+    justify-content: flex-end;
+}
+
+#cancel-todo-btn{
+    background-color: var(--neutral);
+}
+
+#cancel-todo-btn:hover{
+    cursor: pointer;
+    background-color: #5c626d;
+}
+
+#cancel-todo-btn:active{
+    box-shadow: none;
+    background-color: #4c515a;
+}
+
+#create-todo-btn {
+    background-color: var(--buttonIdleColor);
+    font-weight: bold;
+}
+
+#create-todo-btn:hover {
+    background-color: var(--buttonHoverColor);
+    cursor: pointer;
+}
+
+#create-todo-btn:active {
+    background-color: var(--buttonActiveColor);
+}

@@ -1,4 +1,4 @@
-// toDoComponent.js
+import { createTodoModal } from "./modals.js";
 
 export function createToDoControl() {
     // 1. Create the Container
@@ -65,6 +65,13 @@ export function createToDoControl() {
     addBtn.id = 'add-to-do';
     addBtn.textContent = '+';
     
+    addBtn.addEventListener('click', () => {
+        const toDoModal = createTodoModal();
+        document.body.append(toDoModal.dialog);
+
+        toDoModal.openModal();
+    })
+
     Object.assign(addBtn.style, {
         width: '46px',
         height: '32px',
