@@ -58,7 +58,6 @@ export function createNoteControl() {
 
     // 5. Assemble and Return
     noteControl.append(h1, addNoteBtn);
-    const notePage = document.getElementById('note-page-container');
-    notePage.append(noteControl);
-    
+
+    return noteControl;
 }

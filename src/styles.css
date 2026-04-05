@@ -106,6 +106,7 @@ nav > div {
 
 nav > div:hover{
     background-color: var(--sideNavHoverColor);
+    transition: background-color 0.2s;
     cursor: pointer;
 }
 
@@ -191,7 +192,7 @@ dialog::backdrop {
     right: 7in;
 }
 
-#project-page{
+.project-page{
     display: flex;
     gap: 25px;
 }

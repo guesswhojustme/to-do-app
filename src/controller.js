@@ -1,13 +1,10 @@
 import { createProjectModal, createWarningModal } from "./ui/modals.js";
 import { projectData } from "./data/data.js";
-import { createToDoControl } from "./ui/to-do-page.js";
-import { createNoteControl } from "./ui/note-page.js";
 import deleteIcon from "./assets/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
-const toDopage = document.getElementById('to-do-page-container');
-const notePage = document.getElementById('note-page-container');
-const notice = document.querySelector('.notice');
+import { projectPage } from "./ui/project-page.js";
+const pageContainer = document.getElementById('project-page-container');
 
 const img = document.createElement('img');
 img.src = deleteIcon;
@@ -58,27 +55,11 @@ export function addProjectWrapperAction() {
                 // because the modal needs it!
             });
             div.addEventListener('click', () => {
-                if(notice.firstChild){
-                    notice.remove();
-                }
+                while (pageContainer.firstChild){
+                    pageContainer.removeChild(pageContainer.firstChild)
+                };
 
-                while (toDopage.firstChild){
-                    toDopage.removeChild(toDopage.firstChild)
-                }
-
-                while (notePage.firstChild){
-                    notePage.removeChild(notePage.firstChild)
-                }
-
-                createToDoControl();
-
-                createNoteControl();
-                
-
-                // const span = document.createElement('span')
-                // span.textContent = div.id;
-
-                // projectPage.append(span);
+                projectPage(div.id);
 
                 console.log(div.id);
                 wrappers.forEach(div => {
