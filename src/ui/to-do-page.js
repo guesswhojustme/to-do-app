@@ -1,6 +1,6 @@
 import { createTodoModal } from "./modals.js";
 
-export function createToDoControl() {
+export function createToDoControl(id) {
     // 1. Create the Container
     const toDoControl = document.createElement('div');
     toDoControl.id = 'to-do-control';
@@ -66,7 +66,7 @@ export function createToDoControl() {
     addBtn.textContent = '+';
     
     addBtn.addEventListener('click', () => {
-        const toDoModal = createTodoModal();
+        const toDoModal = createTodoModal(id);
         document.body.append(toDoModal.dialog);
 
         toDoModal.openModal();

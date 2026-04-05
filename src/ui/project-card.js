@@ -27,6 +27,7 @@ export function createProj(title, id){
         alignItems: 'center'
     });
 
+
     // 3. Create the Icon Container and Img
     const iconContainer = document.createElement('div');
     const iconImg = document.createElement('img');

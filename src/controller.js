@@ -3,7 +3,7 @@ import { projectData } from "./data/data.js";
 import deleteIcon from "./assets/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
-import { projectPage } from "./ui/project-page.js";
+import { createProjectPage } from "./ui/project-page.js";
 const pageContainer = document.getElementById('project-page-container');
 
 const img = document.createElement('img');
@@ -29,9 +29,10 @@ img.addEventListener('click', () => {
                     projectData.splice(index, 1); 
                     
                     // 3. Save the now-shorter array
-                    localStorage.setItem('items', JSON.stringify(projectData));
+                    localStorage.setItem('projectTitles', JSON.stringify(projectData));
                 }
                 currentTargetDiv.remove();
+                pageContainer.removeChild(pageContainer.firstChild);
                 warningModalObj.close();
                 currentTargetDiv = null;// Clean up after deletion
             }
@@ -59,7 +60,9 @@ export function addProjectWrapperAction() {
                     pageContainer.removeChild(pageContainer.firstChild)
                 };
 
-                projectPage(div.id);
+                const currentPage = createProjectPage(div.id)
+
+                pageContainer.append(currentPage)
 
                 console.log(div.id);
                 wrappers.forEach(div => {

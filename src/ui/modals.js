@@ -1,6 +1,6 @@
 import { createProj } from "./project-card.js";
 import { addProjectWrapperAction } from "../controller.js";
-import { projectData } from "../data/data.js";
+import { projectData, toDoData } from "../data/data.js";
 
 export function createProjectModal() {
     // 1. Create the Dialog Container
@@ -90,7 +90,7 @@ export function createProjectModal() {
             id:  crypto.randomUUID()
         }
         projectData.push(obj)
-        localStorage.setItem('items', JSON.stringify(projectData))
+        localStorage.setItem('projectTitles', JSON.stringify(projectData))
         createProj(obj.title, obj.id);
         closeModal();
         addProjectWrapperAction();
@@ -269,7 +269,7 @@ export function createWarningModal() {
     };
 }
 
-export function createTodoModal() {
+export function createTodoModal(id) {
     // 1. Main Dialog Container
     const dialog = document.createElement('dialog');
     dialog.id = 'new-todo-list-modal';
@@ -438,6 +438,23 @@ export function createTodoModal() {
     createBtnEl.style.fontWeight = 'bold';
 
     btnWrapper.append(cancelBtn, createBtnEl);
+
+    
+    createBtnEl.addEventListener('click', () => {
+        const title = titleInput.value
+        const obj = {
+            id: id,
+            title: title
+        }
+
+        const toDoContainer = document.getElementById('to-do-container')
+        toDoData.push(obj);
+        localStorage.setItem('todos', JSON.stringify(toDoData));
+        closeModal();
+        titleInput.value = '';
+
+        toDoContainer.append(title)
+    })
 
     cancelBtn.addEventListener('click', () => {
         closeModal();
