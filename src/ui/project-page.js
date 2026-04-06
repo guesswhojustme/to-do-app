@@ -1,6 +1,7 @@
 import { createToDoControl } from "./to-do-page.js";
 import { createNoteControl } from "./note-page.js";
 import { toDoData } from '../data/data.js';
+import { todoCard } from "./to-do-card.js";
 
 export function createProjectPage (id){
     const page = document.createElement('div');
@@ -18,7 +19,7 @@ export function createProjectPage (id){
         width: '680px',
         height: '940px',
         display: 'flex',
-        flexDirection: 'column' 
+        flexDirection: 'column',
     })
 
     const noteContainer = document.createElement('div')
@@ -26,7 +27,7 @@ export function createProjectPage (id){
         width: '330px',
         height: '940px',
         display: 'flex',
-        flexDirection: 'column' 
+        flexDirection: 'column',
     })
 
     const todoController = createToDoControl(id);
@@ -35,13 +36,12 @@ export function createProjectPage (id){
     toDoContainer.append(todoController);
     noteContainer.append(noteController);
 
-    
-     toDoData.forEach(data => {
+    //render to do lists
+    toDoData.forEach(data => {
         if(data.id === id){
-            const span = document.createElement('span');
-            span.textContent = data.title;
+           const todo = todoCard(data.id, data.title, data.description, data.priority, data.dueDate);
 
-            toDoContainer.append(span);
+           toDoContainer.append(todo);
         } 
     })
 

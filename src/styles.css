@@ -52,11 +52,21 @@
 
 body{
     font-family: var(--font);
-    background-color: var(--backGroundColor);
-    width: 1440px;
-    height: 1024px;
+    background-color: white;
     display: flex;
+    justify-content: center;
     gap: 25px;
+}
+
+#todobody{
+    display: flex;
+    justify-content: center;
+    width: 1440px;
+    height: 940px;
+    gap: 25px;
+    background-color: var(--backGroundColor);
+    border-radius: 16px;
+    box-shadow: var(--boxShadowStyle);
 }
 
 #title {
@@ -74,11 +84,12 @@ span{
     display: flex;
     flex-direction: column;
     width: 360px;
-    height: 940px;
+    height: 920px;
     border: var(--cardBorderStyle);
     background-color: var(--cardBgColor);
     border-radius: 16px;
     padding: 30px;
+    margin-top: 10px;
 }
 
 #sideNav:first-child{
@@ -190,6 +201,11 @@ dialog::backdrop {
     position: absolute;
     top: 4in;
     right: 7in;
+}
+
+#project-page-container{
+    display:  flex;
+    gap: 20px;
 }
 
 .project-page{
@@ -342,4 +358,134 @@ dialog::backdrop {
 
 #add-note:active{
     background-color: var(--buttonActiveColor);
+}
+
+.to-do-container{
+    display: flex;
+    width: 680px;
+    height: 70px;
+    background-color: var(--cardBgColor);
+    border: var(--cardBorderStyle);
+    border-radius: 16px;
+    padding: 0px 15px 0px 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.to-do-container:hover{
+    border: 2px solid var(--buttonHoverColor);
+    transition: background-color 1ms
+}
+
+#date-check-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+}
+
+#date-check-wrapper > p {
+    font-size: 12px;
+    color: var(--primaryTextColor);
+    text-decoration-line: underline;
+}
+
+#checkbox:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+/* #todo-title-desc{
+    display: flex;
+} */
+
+.todo-title{
+    width: 230px;
+
+}
+
+.todo-title > p {
+    font-size: 19px;
+    color: var(--primaryTextColor);
+    width: 230px; /* Or any small width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.todo-description {
+    width: 133px;
+    height: 45px;
+    margin-bottom: 30px;
+}
+
+.todo-description > p{
+    width: 133px;
+    font-size: 14px;
+    color: var(--secondaryTextColor);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+#priority-editdel-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-del > img{
+    width: 20px;
+    height: 20px;
+}
+
+.edit-del > img:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.priority{
+    padding-top: 15px;
+}
+
+#todo-priority-low{
+    width: 40px;
+    height: 14px;
+    border-radius: 16px;
+    background-color: var(--green);
+    border: none;
+    font-size: 10px;
+    font-family: var(--font);
+    color: white;
+}
+
+#todo-priority-medium{
+    width: 50px;
+    height: 14px;
+    border-radius: 16px;
+    background-color: var(--yellow);
+    border: none;
+    font-size: 10px;
+    font-family: var(--font);
+    color: var(--primaryTextColor);
+}
+
+#todo-priority-high{
+    width: 40px;
+    height: 14px;
+    border-radius: 16px;
+    background-color: var(--red);
+    border: none;
+    font-size: 10px;
+    font-family: var(--font);
+    color: white;
+}
+
+
+#note-container{
+    width: 330px;
+    height: 350px;
+    background-color: var(--noteCardColor);
+    border-radius: 16px;
+    margin-bottom: 20px;
 }

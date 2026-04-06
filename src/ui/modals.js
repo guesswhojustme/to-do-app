@@ -1,6 +1,7 @@
 import { createProj } from "./project-card.js";
 import { addProjectWrapperAction } from "../controller.js";
 import { projectData, toDoData } from "../data/data.js";
+import { todoCard } from "./to-do-card.js";
 
 export function createProjectModal() {
     // 1. Create the Dialog Container
@@ -441,19 +442,27 @@ export function createTodoModal(id) {
 
     
     createBtnEl.addEventListener('click', () => {
-        const title = titleInput.value
+        const title = titleInput.value;
+        const description = descTextarea.value;
+        const dueDate = dateInput.value;
+        const priority = prioritySelect.value;
+
         const obj = {
-            id: id,
-            title: title
+            id,
+            title,
+            description,
+            dueDate,
+            priority
         }
 
+        const todo = todoCard(obj.id, obj.title, obj.description, obj.priority, obj.dueDate);
         const toDoContainer = document.getElementById('to-do-container')
         toDoData.push(obj);
         localStorage.setItem('todos', JSON.stringify(toDoData));
         closeModal();
         titleInput.value = '';
 
-        toDoContainer.append(title)
+        toDoContainer.append(todo);
     })
 
     cancelBtn.addEventListener('click', () => {
