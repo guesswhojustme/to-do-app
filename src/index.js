@@ -5,3 +5,4 @@ import { renderProjectData } from "./data/data.js";
 
 sideNavControl();
 renderProjectData();
+

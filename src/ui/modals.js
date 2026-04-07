@@ -442,20 +442,28 @@ export function createTodoModal(id) {
 
     
     createBtnEl.addEventListener('click', () => {
+        if( titleInput.value == ''
+        ){
+            alert('cant proceed! empty input.')
+            return true;
+        }
+
         const title = titleInput.value;
         const description = descTextarea.value;
         const dueDate = dateInput.value;
         const priority = prioritySelect.value;
+        const state = 'not-done';
 
         const obj = {
             id,
             title,
             description,
             dueDate,
-            priority
+            priority,
+            state,
         }
 
-        const todo = todoCard(obj.id, obj.title, obj.description, obj.priority, obj.dueDate);
+        const todo = todoCard(obj);
         const toDoContainer = document.getElementById('to-do-container')
         toDoData.push(obj);
         localStorage.setItem('todos', JSON.stringify(toDoData));

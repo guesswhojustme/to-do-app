@@ -1,5 +1,5 @@
 import { createProjectModal, createWarningModal } from "./ui/modals.js";
-import { projectData } from "./data/data.js";
+import { projectData, toDoData } from "./data/data.js";
 import deleteIcon from "./assets/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
@@ -9,6 +9,7 @@ const pageContainer = document.getElementById('project-page-container');
 const img = document.createElement('img');
 img.src = deleteIcon;
 img.style.cursor = 'pointer';
+img.id = 'delete-icon';
     
 img.addEventListener('mouseenter', () => img.style.opacity = '0.7'// Example: dim it slightly on hover
 );
@@ -31,6 +32,16 @@ img.addEventListener('click', () => {
                     // 3. Save the now-shorter array
                     localStorage.setItem('projectTitles', JSON.stringify(projectData));
                 }
+
+                const todoIndex = toDoData.findIndex(item => item.id === currentTargetDiv.id);
+                if (todoIndex !== -1) {
+                    // 2. Remove 1 item at that index
+                    toDoData.splice(todoIndex, 1); 
+                    
+                    // 3. Save the now-shorter array
+                    localStorage.setItem('todos', JSON.stringify(projectData));
+                }
+
                 currentTargetDiv.remove();
                 pageContainer.removeChild(pageContainer.firstChild);
                 warningModalObj.close();
@@ -43,6 +54,7 @@ img.addEventListener('click', () => {
 export function addProjectWrapperAction() {
         console.log('addProjectWrapper is triggerd');
         const wrappers = document.querySelectorAll('.project-wrapper');
+        
         wrappers.forEach(div => {
             console.log(div);
             div.addEventListener('mouseenter', () => {
@@ -56,6 +68,7 @@ export function addProjectWrapperAction() {
                 // because the modal needs it!
             });
             div.addEventListener('click', () => {
+
                 while (pageContainer.firstChild){
                     pageContainer.removeChild(pageContainer.firstChild)
                 };

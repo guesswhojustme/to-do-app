@@ -39,7 +39,7 @@ export function createProjectPage (id){
     //render to do lists
     toDoData.forEach(data => {
         if(data.id === id){
-           const todo = todoCard(data.id, data.title, data.description, data.priority, data.dueDate);
+           const todo = todoCard(data);
 
            toDoContainer.append(todo);
         } 
