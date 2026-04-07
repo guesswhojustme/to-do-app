@@ -40,7 +40,7 @@ export function createProjectPage (id){
     toDoData.forEach(data => {
         if(data.id === id){
            const todo = todoCard(data);
-
+           
            toDoContainer.append(todo);
         } 
     })

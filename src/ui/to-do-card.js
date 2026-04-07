@@ -13,10 +13,13 @@ export function todoCard(data){
     const deleteImg = document.createElement('img');
     deleteImg.src = delete_icon;
 
+	const uniqueID = data.secondaryId;
+
     // 2. Main Container
     const card = document.createElement('div');
     card.className = 'to-do-container';
     card.id = data.id;
+
 
     // 3. Date & Checkbox Wrapper
     const dateCheckWrapper = document.createElement('div');
@@ -26,7 +29,7 @@ export function todoCard(data){
     const checkboxImg = document.createElement('img');
     checkboxImg.src = unfinished_icon;
     checkboxImg.className = 'checkbox';
-	checkboxImg.id = data.id;
+	checkboxImg.id = uniqueID;
     checkboxImg.alt = 'icon';
     checkboxDiv.append(checkboxImg);
 
@@ -34,7 +37,7 @@ export function todoCard(data){
 	const finishedIcon = finished_icon;
 	finishedImg.src = finishedIcon;
 	finishedImg.className = 'finishedbox';
-	finishedImg.id = data.id
+	finishedImg.id = uniqueID
 
 
 	checkboxImg.addEventListener('click', () => {
@@ -44,7 +47,7 @@ export function todoCard(data){
 		
 		//change status and save
 		toDoData.forEach(data => {
-			if(finishedImg.id === data.id){
+			if(finishedImg.id === data.secondaryId){
 				data.status = 'done';
 				console.log(data.status);
 				localStorage.setItem('todos', JSON.stringify(toDoData))
@@ -65,7 +68,7 @@ export function todoCard(data){
 		
 		//change status and save
 		toDoData.forEach(data => {
-			if(finishedImg.id === data.id){
+			if(finishedImg.id === data.secondaryId){
 				data.status = 'not-done';
 				console.log(data.status);
 				localStorage.setItem('todos', JSON.stringify(toDoData))
@@ -136,18 +139,20 @@ export function todoCard(data){
     });
 
 	if(data.status === 'done'){
-		checkboxDiv.removeChild(checkboxDiv.firstChild);
-		checkboxDiv.append(finishedImg);
-		Object.assign(card.style, {
-			opacity: '0.5',
-		})
-	}
+			checkboxDiv.removeChild(checkboxDiv.firstChild);
+			checkboxDiv.append(finishedImg);
+			Object.assign(card.style, {
+				opacity: '0.5',
+			})
+		}
 
     // Click logic: Toggle Expansion
     card.addEventListener('click', (e) => {
         // Prevents expanding when clicking functional buttons
         if (e.target.className === 'finishedbox' || e.target.className === 'checkbox' || e.target.closest('.edit-del')) return;
 		console.log(data.status);
+		console.log(uniqueID);
+
         const isExpanded = card.classList.toggle('expanded');
 
         if (isExpanded) {

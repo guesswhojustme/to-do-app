@@ -461,6 +461,7 @@ export function createTodoModal(id) {
             dueDate,
             priority,
             status,
+            secondaryId: crypto.randomUUID()
         }
 
         const todo = todoCard(obj);
