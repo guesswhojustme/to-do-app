@@ -39,7 +39,7 @@ img.addEventListener('click', () => {
                     toDoData.splice(todoIndex, 1); 
                     
                     // 3. Save the now-shorter array
-                    localStorage.setItem('todos', JSON.stringify(projectData));
+                    localStorage.setItem('todos', JSON.stringify(toDoData));
                 }
 
                 currentTargetDiv.remove();
