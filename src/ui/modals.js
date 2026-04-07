@@ -452,15 +452,15 @@ export function createTodoModal(id) {
         const description = descTextarea.value;
         const dueDate = dateInput.value;
         const priority = prioritySelect.value;
-        const state = 'not-done';
+        const status = 'not-done';
 
-        const obj = {
+        let obj = {
             id,
             title,
             description,
             dueDate,
             priority,
-            state,
+            status,
         }
 
         const todo = todoCard(obj);

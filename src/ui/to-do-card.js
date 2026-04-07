@@ -2,6 +2,7 @@ import edit_icon from '../assets/svgs/edit_icon.svg';
 import delete_icon from '../assets/svgs/delete_icon.svg'
 import finished_icon from '../assets/svgs/green-checkbox_icon.svg';
 import unfinished_icon from '../assets/svgs/unfinished_icon.svg';
+import { toDoData } from '../data/data.js';
 
 export function todoCard(data){
 	//create ui and put data in the UI based on the argument that it has
@@ -25,6 +26,7 @@ export function todoCard(data){
     const checkboxImg = document.createElement('img');
     checkboxImg.src = unfinished_icon;
     checkboxImg.className = 'checkbox';
+	checkboxImg.id = data.id;
     checkboxImg.alt = 'icon';
     checkboxDiv.append(checkboxImg);
 
@@ -37,6 +39,17 @@ export function todoCard(data){
 
 	checkboxImg.addEventListener('click', () => {
 		checkboxDiv.removeChild(checkboxDiv.firstChild);
+		console.log(data.status);
+		console.log(`checkbox icon id: ${finishedImg.id}`);
+		
+		//change status and save
+		toDoData.forEach(data => {
+			if(finishedImg.id === data.id){
+				data.status = 'done';
+				console.log(data.status);
+				localStorage.setItem('todos', JSON.stringify(toDoData))
+			}
+		})
 
 		checkboxDiv.append(finishedImg);
 		Object.assign(card.style, {
@@ -44,10 +57,21 @@ export function todoCard(data){
 		})
 	})
 
+
+	console.log(data.status);
 	finishedImg.addEventListener('click', () => {
 		checkboxDiv.removeChild(checkboxDiv.firstChild);
-
-		console.log(finishedImg.id);
+		console.log(`finished icon id: ${finishedImg.id}`);
+		
+		//change status and save
+		toDoData.forEach(data => {
+			if(finishedImg.id === data.id){
+				data.status = 'not-done';
+				console.log(data.status);
+				localStorage.setItem('todos', JSON.stringify(toDoData))
+			}
+		})
+		
 		checkboxDiv.append(checkboxImg);
 		Object.assign(card.style, {
 			opacity: '1',
@@ -111,11 +135,19 @@ export function todoCard(data){
         deleteImg.remove();
     });
 
+	if(data.status === 'done'){
+		checkboxDiv.removeChild(checkboxDiv.firstChild);
+		checkboxDiv.append(finishedImg);
+		Object.assign(card.style, {
+			opacity: '0.5',
+		})
+	}
+
     // Click logic: Toggle Expansion
     card.addEventListener('click', (e) => {
         // Prevents expanding when clicking functional buttons
         if (e.target.className === 'finishedbox' || e.target.className === 'checkbox' || e.target.closest('.edit-del')) return;
-
+		console.log(data.status);
         const isExpanded = card.classList.toggle('expanded');
 
         if (isExpanded) {
