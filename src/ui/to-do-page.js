@@ -1,4 +1,7 @@
 import { createTodoModal } from "./modals.js";
+import { toDoData } from "../data/data.js";
+import { todoCard } from "./to-do-card.js";
+import { createProjectPage } from "./project-page.js";
 
 export function createToDoControl(id) {
     // 1. Create the Container
@@ -9,6 +12,9 @@ export function createToDoControl(id) {
         justifyContent: 'space-between',
         alignItems: 'center'
     });
+    toDoControl.addEventListener('click', () => {
+        console.log(`to do control id: ${id}`);
+    })
 
     // 2. Create Header
     const h1 = document.createElement('h1');
@@ -56,6 +62,47 @@ export function createToDoControl(id) {
     const high = createPriorityBtn('high', 'var(--red)', 'var(--redHover)', 'var(--redActive)');
     const medium = createPriorityBtn('medium', 'var(--yellow)', '#e2940c', '#ce8609');
     const low = createPriorityBtn('low', 'var(--green)', '#10b07a', '#0e9d6d');
+
+    function loadToDoPrio(prio){
+        const toDoContainer = document.getElementById('to-do-container');
+        while (toDoContainer.children.length > 1) {
+            toDoContainer.removeChild(toDoContainer.lastElementChild);
+        }
+        toDoData.forEach(todos => {
+                    if(todos.id === id){
+                        if(todos.priority === prio){
+                            const todo = todoCard(todos);
+                            toDoContainer.append(todo);
+                        }
+                    }
+                })
+    }
+
+    const pageContainer = document.getElementById('project-page-container');
+    btnContainer.addEventListener('click', (e) => {
+        const prioBtns = e.target;
+        switch(prioBtns.id){
+            case 'low':
+                loadToDoPrio("low");
+                break;
+            case 'medium':
+                loadToDoPrio("medium");
+                break;
+            case 'high':
+                loadToDoPrio("high");
+                break;
+            case 'neutral': 
+                while (pageContainer.firstChild){
+                            pageContainer.removeChild(pageContainer.firstChild)
+                        };
+                        const currentPage = createProjectPage(id)
+                        pageContainer.append(currentPage)
+                break;
+        }
+    })
+
+
+
 
     btnContainer.append(neutral, high, medium, low);
 
