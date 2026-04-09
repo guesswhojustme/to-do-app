@@ -2,6 +2,8 @@ import { createProj } from "./project-card.js";
 import { addProjectWrapperAction } from "../controller.js";
 import { projectData, toDoData } from "../data/data.js";
 import { todoCard } from "./to-do-card.js";
+import { createProjectPage } from "./project-page.js";
+const pageContainer = document.getElementById('project-page-container');
 
 export function createProjectModal() {
     // 1. Create the Dialog Container
@@ -472,6 +474,243 @@ export function createTodoModal(id) {
         titleInput.value = '';
 
         toDoContainer.append(todo);
+    })
+
+    cancelBtn.addEventListener('click', () => {
+        closeModal();
+    })
+
+    // Final Assembly
+    dialog.append(span, titleInput, descTextarea, wrapper, btnWrapper);
+
+    return {
+        dialog,
+        closeModal, 
+        openModal,
+    }
+}
+
+export function createEditTodoModal(data) {
+    // 1. Main Dialog Container
+    const dialog = document.createElement('dialog');
+    dialog.id = 'new-todo-list-modal';
+    
+    // Applying CSS for #new-todo-list-modal
+    Object.assign(dialog.style, {
+        display: 'none', // Note: display:flex on <dialog> can sometimes override the browser's default center positioning
+        flexDirection: 'column',
+        width: '607px',
+        height: '500px',
+        backgroundColor: 'var(--modalBgColor)',
+        border: 'var(--cardBorderStyle)',
+        borderRadius: '16px',
+        boxShadow: 'var(--boxShadowStyle)',
+        paddingLeft: '45px',
+        paddingTop: '20px',
+        gap: '20px',
+        boxSizing: 'border-box' 
+    });
+
+    // 2. Title Span
+    const span = document.createElement('span');
+    span.textContent = 'Edit to do list';
+    Object.assign(span.style, {
+        fontSize: '22px',
+        fontWeight: 'bold'
+    });
+
+    // 3. Input Title
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.id = 'todo-title';
+    titleInput.placeholder = 'Title';
+    titleInput.value = data.title;
+
+    Object.assign(titleInput.style, {
+        width: '505px',
+        height: '67px',
+        border: 'var(--cardBorderStyle)',
+        outline: 'none',
+        fontFamily: 'var(--font)',
+        fontSize: '29px',
+        color: 'var(--primaryTextColor)',
+        borderRadius: '8px',
+        boxSizing: 'border-box'
+    });
+
+    // 4. Description Textarea
+    const descTextarea = document.createElement('textarea');
+    descTextarea.id = 'todo-description';
+    descTextarea.placeholder = 'Description';
+    descTextarea.value = data.description;
+
+    Object.assign(descTextarea.style, {
+        width: '505px',
+        height: '200px',
+        border: 'var(--cardBorderStyle)',
+        outline: 'none',
+        resize: 'none',
+        fontFamily: 'var(--font)',
+        fontSize: '19px',
+        color: 'var(--primaryTextColor)',
+        borderRadius: '8px',
+        boxSizing: 'border-box'
+    });
+
+    // 5. Date & Priority Wrapper
+    const wrapper = document.createElement('div');
+    wrapper.id = 'date-priority-wrapper';
+    Object.assign(wrapper.style, {
+        width: '505px',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        gap: '20px'
+    });
+
+    // Helper to create the vertical label/input groups
+    const createInputGroup = (labelText, inputElement) => {
+        const div = document.createElement('div');
+        Object.assign(div.style, {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5px'
+        });
+        const label = document.createElement('label');
+        label.textContent = labelText;
+        label.style.color = 'var(--secondaryTextColor)';
+        div.append(label, inputElement);
+        return div;
+    };
+
+    // Date Input
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    dateInput.id = 'todo-dt';
+
+    Object.assign(dateInput.style, {
+        width: '119px',
+        height: '28px',
+        borderRadius: '7px',
+        border: 'var(--cardBorderStyle)',
+        fontFamily: 'var(--font)'
+    });
+
+    // Priority Select
+    const prioVal = data.priority;
+    const prioritySelect = document.createElement('select');
+    prioritySelect.id = 'priority-lvl';
+
+    let prios = ['low', 'medium', 'high'];
+
+    if(prioVal){
+        const opt = document.createElement('option');
+        opt.value = prioVal;
+        opt.textContent = prioVal.charAt(0).toUpperCase() + prioVal.slice(1);
+        prios = prios.filter(item => item !== prioVal);
+        prioritySelect.appendChild(opt);
+    }
+
+    prios.forEach(level => {
+        const opt = document.createElement('option');
+        opt.value = level;
+        opt.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+        prioritySelect.appendChild(opt);
+    });
+    
+    Object.assign(prioritySelect.style, {
+        width: '90px',
+        height: '28px',
+        borderRadius: '7px',
+        border: 'var(--cardBorderStyle)',
+        fontFamily: 'var(--font)'
+    });
+
+    wrapper.append(createInputGroup('Due date', dateInput), createInputGroup('Priority', prioritySelect));
+
+    // 6. Button Footer Wrapper
+    const btnWrapper = document.createElement('div');
+    btnWrapper.id = 'todo-modal-btn-wrapper';
+    Object.assign(btnWrapper.style, {
+        display: 'flex',
+        gap: '20px',
+        width: '505px',
+        justifyContent: 'flex-end'
+    });
+
+    const createBtn = (id, text, bgColor, hoverColor, activeColor) => {
+        const btn = document.createElement('button');
+        btn.id = id;
+        btn.textContent = text;
+        Object.assign(btn.style, {
+            fontFamily: 'var(--font)',
+            width: '88px',
+            height: '28px',
+            borderRadius: '8px',
+            border: 'var(--cardBorderStyle)',
+            fontSize: '16px',
+            color: 'white',
+            backgroundColor: bgColor,
+            cursor: 'pointer',
+            transition: 'background-color 0.1s'
+        });
+
+        btn.addEventListener('mouseenter', () => btn.style.backgroundColor = hoverColor);
+        btn.addEventListener('mouseleave', () => btn.style.backgroundColor = bgColor);
+        btn.addEventListener('mousedown', () => btn.style.backgroundColor = activeColor);
+        btn.addEventListener('mouseup', () => btn.style.backgroundColor = hoverColor);
+        
+        return btn;
+    };
+
+    const closeModal = () => {
+        dialog.style.display = "none";
+        dialog.close();
+    }
+
+    const openModal = () => {
+        dialog.style.display = "flex";
+        dialog.showModal();
+    }
+
+    const cancelBtn = createBtn('cancel-todo-btn', 'cancel', 'var(--neutral)', '#5c626d', '#4c515a');
+    const saveBtnEl = createBtn('save-todo-btn', 'save', 'var(--buttonIdleColor)', 'var(--buttonHoverColor)', 'var(--buttonActiveColor)');
+    saveBtnEl.style.fontWeight = 'bold';
+
+    btnWrapper.append(cancelBtn, saveBtnEl);
+
+    
+    saveBtnEl.addEventListener('click', () => {
+        console.log(`${data.title}'s current priority value: ${prioritySelect.value}`);
+        if( titleInput.value == ''
+        ){
+            alert('cant proceed! empty input.')
+            return true;
+        }
+
+        const title = titleInput.value;
+        const description = descTextarea.value;
+        const dueDate = dateInput.value;
+        const priority = prioritySelect.value;
+
+        toDoData.forEach(tododata => {
+            if(tododata.secondaryId === data.secondaryId){
+                tododata.title = title;
+                tododata.description = description;
+                tododata.dueDate = dueDate;
+                tododata.priority = priority;
+                localStorage.setItem('todos', JSON.stringify(toDoData));
+            }
+        })
+
+        //refreshes the project container
+        while (pageContainer.firstChild){
+            pageContainer.removeChild(pageContainer.firstChild)
+        };
+        const currentPage = createProjectPage(data.id)
+        pageContainer.append(currentPage)
+
+
+        closeModal();
     })
 
     cancelBtn.addEventListener('click', () => {

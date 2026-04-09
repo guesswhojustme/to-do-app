@@ -3,6 +3,10 @@ import delete_icon from '../assets/svgs/delete_icon.svg'
 import finished_icon from '../assets/svgs/green-checkbox_icon.svg';
 import unfinished_icon from '../assets/svgs/unfinished_icon.svg';
 import { toDoData } from '../data/data.js';
+import { createWarningModal, createEditTodoModal } from './modals.js';
+
+const warningModalObj = createWarningModal();
+document.body.append(warningModalObj.dialog);
 
 export function todoCard(data){
 	//create ui and put data in the UI based on the argument that it has
@@ -20,10 +24,36 @@ export function todoCard(data){
     card.className = 'to-do-container';
     card.id = data.id;
 
+    const editModalObj = createEditTodoModal(data);
+    document.body.append(editModalObj.dialog);
+
+    editImg.addEventListener('click', () => {
+        editModalObj.openModal();
+    })
 
     // 3. Date & Checkbox Wrapper
     const dateCheckWrapper = document.createElement('div');
     dateCheckWrapper.id = 'date-check-wrapper';
+
+    deleteImg.addEventListener('click', () => {
+        warningModalObj.open();
+        
+            warningModalObj.deleteBtn.addEventListener('click', () => {
+                //delete todo
+                const todoIndex = toDoData.findIndex(item => item.secondaryId === uniqueID);
+                if (todoIndex !== -1) {
+                // 2. Remove 1 item at that index
+                toDoData.splice(todoIndex, 1); 
+                                    
+                // 3. Save the now-shorter array
+                localStorage.setItem('todos', JSON.stringify(toDoData));
+                }
+            card.remove();
+            warningModalObj.close();
+            }, { once: true });
+            
+        console.log(` ${data.title}'s ID: ${uniqueID}`);
+    })
 
     const checkboxDiv = document.createElement('div');
     const checkboxImg = document.createElement('img');
