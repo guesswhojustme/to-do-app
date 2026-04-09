@@ -4,7 +4,17 @@ import deleteIcon from "./assets/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
 import { createProjectPage } from "./ui/project-page.js";
+import { todoCard } from "./ui/to-do-card.js";
 const pageContainer = document.getElementById('project-page-container');
+import { format, isTomorrow, isPast, parseISO, compareAsc } from 'date-fns';
+
+
+
+function removePageContainerChild(){
+    while (pageContainer.firstChild){
+                    pageContainer.removeChild(pageContainer.firstChild)
+                };
+}
 
 const img = document.createElement('img');
 img.src = deleteIcon;
@@ -50,7 +60,6 @@ img.addEventListener('click', () => {
         }, { once: true });
 });
 
-
 export function addProjectWrapperAction() {
         console.log('addProjectWrapper is triggerd');
         const wrappers = document.querySelectorAll('.project-wrapper');
@@ -69,9 +78,7 @@ export function addProjectWrapperAction() {
             });
             div.addEventListener('click', () => {
 
-                while (pageContainer.firstChild){
-                    pageContainer.removeChild(pageContainer.firstChild)
-                };
+                removePageContainerChild();
 
                 const currentPage = createProjectPage(div.id)
 
@@ -90,6 +97,7 @@ export function addProjectWrapperAction() {
             })
         });
 }
+
 
 
 
@@ -113,15 +121,90 @@ export function sideNavControl(){
                 break;
             case 'today-tab':
                 console.log("today tab has been clicked");
+                removePageContainerChild();
+                const dateToday = format(new Date(), 'yyyy-MM-dd');
+
+                const todayTabPage = document.createElement('div');
+                Object.assign(todayTabPage.style, {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    paddingTop: '20px'
+                })
+
+                pageContainer.append(todayTabPage);
+                toDoData.forEach(data => {
+                    if(data.dueDate === dateToday){
+                        const todos = todoCard(data)
+
+                        todayTabPage.append(todos);
+                    }
+                })
+                
                 break;
             case 'upcoming-tab':
                 console.log("upcoming tab has been clicked");
+                removePageContainerChild();
+
+                const upcomingTabPage = document.createElement('div');
+                Object.assign(upcomingTabPage.style, {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    paddingTop: '20px'
+                })
+
+                pageContainer.append(upcomingTabPage);
+
+                toDoData.forEach(data => {
+                    if(isTomorrow(data.dueDate)){
+                        const todos = todoCard(data)
+
+                        upcomingTabPage.append(todos);
+                    }
+                })
+                
                 break;
             case 'important-tab':
                 console.log("important tab has been clicked");
+                removePageContainerChild();
+
+                const importantTabPage = document.createElement('div');
+                Object.assign(importantTabPage.style, {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    paddingTop: '20px'
+                })
+
+                pageContainer.append(importantTabPage);
+                toDoData.forEach(data => {
+                    if(data.priority === 'high'){
+                        const todos = todoCard(data)
+
+                        importantTabPage.append(todos);
+                    }
+                });
+
                 break;
             case 'finished-tab':
                 console.log("finished tab has been clicked");
+                
+                removePageContainerChild();
+
+                const finishedTabPage = document.createElement('div');
+                Object.assign(finishedTabPage.style, {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    paddingTop: '20px'
+                })
+
+                pageContainer.append(finishedTabPage);
+                toDoData.forEach(data => {
+                    if(data.status === 'done'){
+                        const todos = todoCard(data)
+
+                        finishedTabPage.append(todos);
+                    }
+                });
+
                 break;
         }
     })

@@ -4,20 +4,65 @@ import finished_icon from '../assets/svgs/green-checkbox_icon.svg';
 import unfinished_icon from '../assets/svgs/unfinished_icon.svg';
 import { toDoData } from '../data/data.js';
 import { createWarningModal, createEditTodoModal } from './modals.js';
-import { format, addDays, isPast, parseISO, compareAsc } from 'date-fns';
+import { format, isTomorrow, isPast, parseISO, compareAsc } from 'date-fns';
 
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
 
-
 let finishedValCounter = 0;
+let importantValCounter = 0;
+let todayValCounter = 0;
+let upcomingValCounter = 0;
 
 function finished(counter){
     const finishedVal = document.getElementById('finishedTodos') 
     finishedVal.textContent = counter;
 }
 
+function important(counter){
+    const importantVal = document.getElementById('importantTodos');
+    importantVal.textContent = counter;
+}
+
+function today(counter){
+    const todayVal = document.getElementById('todayTodos');
+    todayVal.textContent = counter;
+}
+
+function upcoming(counter){
+    const upcomingVal = document.getElementById('upcomingTodos');
+    upcomingVal.textContent = counter;
+}
+
+toDoData.forEach(data => {
+    if(data.status === 'done'){
+        finishedValCounter++;
+    }
+})
+
+toDoData.forEach(data => {
+    if(data.priority === "high"){
+        importantValCounter++
+    }
+})
+
+toDoData.forEach(data => {
+    if(isTomorrow(data.dueDate)){
+        upcomingValCounter++
+    }
+})
+
+const dateToday = format(new Date(), 'yyyy-MM-dd');
+toDoData.forEach(data => {
+    if(data.dueDate === dateToday){
+        todayValCounter++;
+    }
+})
+
 finished(finishedValCounter);
+important(importantValCounter);
+today(todayValCounter);
+upcoming(upcomingValCounter);
 
 export function todoCard(data){
 	//create ui and put data in the UI based on the argument that it has
@@ -35,7 +80,7 @@ export function todoCard(data){
     card.className = 'to-do-container';
     card.id = data.id;
     card.dataset.secondaryId = data.secondaryId;
-    
+
     const editModalObj = createEditTodoModal(data);
     document.body.append(editModalObj.dialog);
 

@@ -55,6 +55,7 @@ export function createProjectModal() {
     input.id = 'new-project-title';
     input.style.outline = 'none';
 
+
     Object.assign(input.style, {
         width: '370px',
         height: '58px',
@@ -316,7 +317,8 @@ export function createTodoModal(id) {
         fontSize: '29px',
         color: 'var(--primaryTextColor)',
         borderRadius: '8px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        paddingLeft: '20px'
     });
 
     // 4. Description Textarea
@@ -333,7 +335,9 @@ export function createTodoModal(id) {
         fontSize: '19px',
         color: 'var(--primaryTextColor)',
         borderRadius: '8px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        paddingLeft: '20px',
+        paddingTop: '10px'
     });
 
     // 5. Date & Priority Wrapper
@@ -366,7 +370,7 @@ export function createTodoModal(id) {
     dateInput.type = 'date';
     dateInput.id = 'todo-dt';
     dateInput.value = format(new Date(), 'yyyy-MM-dd');
-
+ 
     Object.assign(dateInput.style, {
         width: '119px',
         height: '28px',
@@ -538,7 +542,8 @@ export function createEditTodoModal(data) {
         fontSize: '29px',
         color: 'var(--primaryTextColor)',
         borderRadius: '8px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        paddingLeft: '20px',
     });
 
     // 4. Description Textarea
@@ -557,7 +562,9 @@ export function createEditTodoModal(data) {
         fontSize: '19px',
         color: 'var(--primaryTextColor)',
         borderRadius: '8px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        paddingLeft: '20px',
+        paddingTop: '10px'
     });
 
     // 5. Date & Priority Wrapper
@@ -690,8 +697,6 @@ export function createEditTodoModal(data) {
             alert('cant proceed! empty input.')
             return true;
         }
-
-
 
         const title = titleInput.value;
         const description = descTextarea.value;
