@@ -9,6 +9,16 @@ import { format, addDays, isPast, parseISO, compareAsc } from 'date-fns';
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
 
+
+let finishedValCounter = 0;
+
+function finished(counter){
+    const finishedVal = document.getElementById('finishedTodos') 
+    finishedVal.textContent = counter;
+}
+
+finished(finishedValCounter);
+
 export function todoCard(data){
 	//create ui and put data in the UI based on the argument that it has
 	//data is dependent on the to do card form
@@ -24,7 +34,8 @@ export function todoCard(data){
     const card = document.createElement('div');
     card.className = 'to-do-container';
     card.id = data.id;
-
+    card.dataset.secondaryId = data.secondaryId;
+    
     const editModalObj = createEditTodoModal(data);
     document.body.append(editModalObj.dialog);
 
@@ -72,6 +83,9 @@ export function todoCard(data){
 
 
 	checkboxImg.addEventListener('click', () => {
+        finishedValCounter++;
+        finished(finishedValCounter);
+        console.log(`finishedValCounter: ${finishedValCounter}`);
 		checkboxDiv.removeChild(checkboxDiv.firstChild);
 		console.log(data.status);
 		console.log(`checkbox icon id: ${finishedImg.id}`);
@@ -94,6 +108,9 @@ export function todoCard(data){
 
 	console.log(data.status);
 	finishedImg.addEventListener('click', () => {
+        finishedValCounter--;
+        finished(finishedValCounter);
+        console.log(`finishedValCounter: ${finishedValCounter}`);
 		checkboxDiv.removeChild(checkboxDiv.firstChild);
 		console.log(`finished icon id: ${finishedImg.id}`);
 		
@@ -158,6 +175,8 @@ export function todoCard(data){
     // Assemble Card
     card.append(dateCheckWrapper, titleDescWrapper, priorityActionWrapper);
 
+    
+
     // --- INTERACTIVITY LOGIC ---
 
     // Hover logic: Show/Hide Edit & Delete icons
@@ -185,7 +204,9 @@ export function todoCard(data){
         if (e.target.className === 'finishedbox' || e.target.className === 'checkbox' || e.target.closest('.edit-del')) return;
 		console.log(data.status);
 		console.log(uniqueID);
-
+        console.log(`secondaryId: ${card.dataset.secondaryId}`);
+        console.log(`card secondaryId: ${card.dataset.secondaryId}`);
+        
         const isExpanded = card.classList.toggle('expanded');
 
         if (isExpanded) {

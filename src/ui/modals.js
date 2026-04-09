@@ -366,7 +366,7 @@ export function createTodoModal(id) {
     dateInput.type = 'date';
     dateInput.id = 'todo-dt';
     dateInput.value = format(new Date(), 'yyyy-MM-dd');
-    
+
     Object.assign(dateInput.style, {
         width: '119px',
         height: '28px',
@@ -691,7 +691,7 @@ export function createEditTodoModal(data) {
             return true;
         }
 
-        
+
 
         const title = titleInput.value;
         const description = descTextarea.value;
@@ -708,13 +708,15 @@ export function createEditTodoModal(data) {
             }
         })
 
-        //refreshes the project container
-        while (pageContainer.firstChild){
-            pageContainer.removeChild(pageContainer.firstChild)
-        };
-        const currentPage = createProjectPage(data.id)
-        pageContainer.append(currentPage)
+        const oldCardElement = document.querySelector(`[data-secondary-id="${data.secondaryId}"]`);
 
+        if (oldCardElement) {
+            // Create a brand new card element using your component function
+            const newCardElement = todoCard(data); 
+            
+            // Swap the old one for the new one!
+            oldCardElement.replaceWith(newCardElement);
+        }
 
         closeModal();
     })

@@ -91,6 +91,8 @@ export function addProjectWrapperAction() {
         });
 }
 
+
+
 export function sideNavControl(){
     const addProjectIcon = document.getElementById('addProject_icon')
     const nav = document.querySelector('nav');
