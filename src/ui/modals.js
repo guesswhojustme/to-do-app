@@ -3,6 +3,7 @@ import { addProjectWrapperAction } from "../controller.js";
 import { projectData, toDoData } from "../data/data.js";
 import { todoCard } from "./to-do-card.js";
 import { createProjectPage } from "./project-page.js";
+import { format, addDays, isPast, parseISO, compareAsc } from 'date-fns';
 const pageContainer = document.getElementById('project-page-container');
 
 export function createProjectModal() {
@@ -364,6 +365,8 @@ export function createTodoModal(id) {
     const dateInput = document.createElement('input');
     dateInput.type = 'date';
     dateInput.id = 'todo-dt';
+    dateInput.value = format(new Date(), 'yyyy-MM-dd');
+    
     Object.assign(dateInput.style, {
         width: '119px',
         height: '28px',
@@ -586,6 +589,7 @@ export function createEditTodoModal(data) {
     const dateInput = document.createElement('input');
     dateInput.type = 'date';
     dateInput.id = 'todo-dt';
+    dateInput.value = data.dueDate;
 
     Object.assign(dateInput.style, {
         width: '119px',
@@ -686,6 +690,8 @@ export function createEditTodoModal(data) {
             alert('cant proceed! empty input.')
             return true;
         }
+
+        
 
         const title = titleInput.value;
         const description = descTextarea.value;

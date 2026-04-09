@@ -4,6 +4,7 @@ import finished_icon from '../assets/svgs/green-checkbox_icon.svg';
 import unfinished_icon from '../assets/svgs/unfinished_icon.svg';
 import { toDoData } from '../data/data.js';
 import { createWarningModal, createEditTodoModal } from './modals.js';
+import { format, addDays, isPast, parseISO, compareAsc } from 'date-fns';
 
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
@@ -111,10 +112,12 @@ export function todoCard(data){
 		})
 	})
 
+    const dateObj = parseISO(data.dueDate);
+    const displayDate = format(dateObj, 'MMMM do yyyy');
 
     const dueDateP = document.createElement('p');
     dueDateP.id = 'duedate';
-    dueDateP.textContent = `due date: ${data.dueDate || 'none'}`;
+    dueDateP.textContent = `due: ${displayDate}`;
 
     dateCheckWrapper.append(checkboxDiv, dueDateP);
 
