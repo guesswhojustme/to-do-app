@@ -1,5 +1,5 @@
 import { createProj } from "./project-card.js";
-import { addProjectWrapperAction, importantTabState, todayTabState, upcomingTabState } from "../controller.js";
+import { addProjectWrapperAction, importantTabState, todayTabState, upcomingTabState, finishedTabState } from "../controller.js";
 import { projectData, toDoData } from "../data/data.js";
 import { todoCard } from "./to-do-card.js";
 import { createProjectPage } from "./project-page.js";
@@ -483,6 +483,7 @@ export function createTodoModal(id) {
         importantTabState();
         upcomingTabState();
         todayTabState();
+
         toDoContainer.append(todo);
     })
 

@@ -5,27 +5,10 @@ import unfinished_icon from '../assets/svgs/unfinished_icon.svg';
 import { toDoData } from '../data/data.js';
 import { createWarningModal, createEditTodoModal } from './modals.js';
 import { format, isTomorrow, isPast, parseISO, compareAsc } from 'date-fns';
-import { importantTabState, todayTabState, upcomingTabState } from "../controller.js";
+import { importantTabState, todayTabState, upcomingTabState, finishedTabState } from "../controller.js";
 
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
-
-let finishedValCounter = 0;
-
-function finished(counter){
-    const finishedVal = document.getElementById('finishedTodos') 
-    finishedVal.textContent = counter;
-}
-
-toDoData.forEach(data => {
-    if(data.status === 'done'){
-        finishedValCounter++;
-    }
-})
-
-
-finished(finishedValCounter);
-
 
 export function todoCard(data){
 	//create ui and put data in the UI based on the argument that it has
@@ -72,6 +55,7 @@ export function todoCard(data){
             importantTabState();
             upcomingTabState();
             todayTabState();
+            finishedTabState();
             warningModalObj.close();
             }, { once: true });
             
@@ -94,9 +78,7 @@ export function todoCard(data){
 
 
 	checkboxImg.addEventListener('click', () => {
-        finishedValCounter++;
-        finished(finishedValCounter);
-        console.log(`finishedValCounter: ${finishedValCounter}`);
+        finishedTabState('check');
 		checkboxDiv.removeChild(checkboxDiv.firstChild);
 		console.log(data.status);
 		console.log(`checkbox icon id: ${finishedImg.id}`);
@@ -119,9 +101,7 @@ export function todoCard(data){
 
 	console.log(data.status);
 	finishedImg.addEventListener('click', () => {
-        finishedValCounter--;
-        finished(finishedValCounter);
-        console.log(`finishedValCounter: ${finishedValCounter}`);
+        finishedTabState('finished');
 		checkboxDiv.removeChild(checkboxDiv.firstChild);
 		console.log(`finished icon id: ${finishedImg.id}`);
 		

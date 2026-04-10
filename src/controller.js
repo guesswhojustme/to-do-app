@@ -8,6 +8,9 @@ import { todoCard } from "./ui/to-do-card.js";
 const pageContainer = document.getElementById('project-page-container');
 import { format, isTomorrow, isPast, parseISO, compareAsc } from 'date-fns';
 
+const landpage = document.getElementById('to-do-page-container')
+const landpage2 = document.getElementById('note-page-container')
+
 function removePageContainerChild(){
     while (pageContainer.firstChild){
                     pageContainer.removeChild(pageContainer.firstChild)
@@ -47,12 +50,14 @@ img.addEventListener('click', () => {
                         }
                     }
                 localStorage.setItem('todos', JSON.stringify(toDoData));
-                
+
                 currentTargetDiv.remove();
                 pageContainer.removeChild(pageContainer.firstChild);
                 importantTabState();
                 upcomingTabState();
                 todayTabState();
+                finishedTabState();
+                pageContainer.append(landpage, landpage2);
                 warningModalObj.close();
                 currentTargetDiv = null;// Clean up after deletion
             }
@@ -204,6 +209,30 @@ export function upcomingTabState(){
 
 upcomingTabState();
 
+export function finishedTabState(counter){
+    let finishedValCounter = 0;
+    if(counter === 'check'){
+        finishedValCounter++;
+    }else if(counter === 'finished'){
+        finishedValCounter--;
+    }
+
+    toDoData.forEach(data => {
+        if(data.status === 'done'){
+            finishedValCounter++;
+        }
+    })
+
+    function count(counter){
+    const finishedVal = document.getElementById('finishedTodos') 
+    finishedVal.textContent = counter;
+    }
+
+    count(finishedValCounter)
+}
+
+finishedTabState();
+
 export function sideNavControl(){
     const addProjectIcon = document.getElementById('addProject_icon')
     const nav = document.querySelector('nav');
@@ -225,27 +254,25 @@ export function sideNavControl(){
             case 'today-tab':
                 console.log("today tab has been clicked");
                 removePageContainerChild();
-                // createPage('todayTodosPage', 'Today Tasks', 'dueDate');
+                createPage('todayTodosPage', 'Today Tasks', 'dueDate');
                 
                 break;
             case 'upcoming-tab':
                 console.log("upcoming tab has been clicked");
                 removePageContainerChild();
-
-                // createPage('upcomingTodosPage', 'Upcoming Tasks', 'dueDate');
+                createPage('upcomingTodosPage', 'Upcoming Tasks', 'dueDate');
                 
                 break;
             case 'important-tab':
                 console.log("important tab has been clicked");
                 removePageContainerChild();
-
-                // createPage('importantTodosPage','Important Tasks', 'priority')
+                createPage('importantTodosPage','Important Tasks', 'priority')
 
                 break;
             case 'finished-tab':
                 console.log("finished tab has been clicked");
                 removePageContainerChild();
-                // createPage('finishedTodosPage','Finished Tasks', 'status')
+                createPage('finishedTodosPage','Finished Tasks', 'status')
 
                 break;
         }

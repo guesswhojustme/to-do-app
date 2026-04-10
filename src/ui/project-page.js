@@ -1,7 +1,8 @@
 import { createToDoControl } from "./to-do-page.js";
 import { createNoteControl } from "./note-page.js";
-import { toDoData } from '../data/data.js';
+import { toDoData, noteData } from '../data/data.js';
 import { todoCard } from "./to-do-card.js";
+import { createNoteCard, renderNoteCard } from "./note-card.js";
 
 export function createProjectPage (id){
     const page = document.createElement('div');
@@ -23,6 +24,8 @@ export function createProjectPage (id){
     })
 
     const noteContainer = document.createElement('div')
+    noteContainer.id = 'note-container'
+
     Object.assign(noteContainer.style, {
         width: '330px',
         height: '940px',
@@ -31,7 +34,7 @@ export function createProjectPage (id){
     })
 
     const todoController = createToDoControl(id);
-    const noteController = createNoteControl();
+    const noteController = createNoteControl(id);
 
     toDoContainer.append(todoController);
     noteContainer.append(noteController);
@@ -43,6 +46,14 @@ export function createProjectPage (id){
            
            toDoContainer.append(todo);
         } 
+    })
+
+    noteData.forEach(data => {
+        if(data.id === id){
+            const note = renderNoteCard(data)
+
+            noteContainer.append(note);
+        }
     })
 
     page.append(toDoContainer, noteContainer)

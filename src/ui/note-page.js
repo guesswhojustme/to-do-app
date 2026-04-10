@@ -1,6 +1,8 @@
 // noteComponent.js
+import { createNoteCard } from "./note-card.js";
 
-export function createNoteControl() {
+
+export function createNoteControl(id) {
     // 1. Create the Control Header Div (The Main Return Element)
     const noteControl = document.createElement('div');
     noteControl.id = 'note-control';
@@ -23,10 +25,18 @@ export function createNoteControl() {
     });
 
     // 3. Create Add Note Button
+    
     const addNoteBtn = document.createElement('button');
     addNoteBtn.id = 'add-note';
     addNoteBtn.textContent = '+';
-    
+
+    addNoteBtn.addEventListener('click', () => {
+        const noteContainer = document.getElementById('note-container');
+        const note = createNoteCard(id);
+
+        noteContainer.append(note);
+    })
+
     // Applying styles for #add-note
     Object.assign(addNoteBtn.style, {
         width: '46px',

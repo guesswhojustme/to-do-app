@@ -92,17 +92,16 @@ export function createToDoControl(id) {
                 loadToDoPrio("high");
                 break;
             case 'neutral': 
-                while (pageContainer.firstChild){
-                            pageContainer.removeChild(pageContainer.firstChild)
-                        };
-                        const currentPage = createProjectPage(id)
-                        pageContainer.append(currentPage)
+            const toDoContainer = document.getElementById('to-do-container');
+                toDoData.forEach(todos => {
+                    if(todos.id === id){
+                            const todo = todoCard(todos);
+                            toDoContainer.append(todo);
+                    }
+                })
                 break;
         }
     })
-
-
-
 
     btnContainer.append(neutral, high, medium, low);
 
