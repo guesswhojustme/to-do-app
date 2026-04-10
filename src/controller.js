@@ -34,24 +34,25 @@ img.addEventListener('click', () => {
             if (currentTargetDiv) {
                 const index = projectData.findIndex(item => item.id === currentTargetDiv.id);
                 if (index !== -1) {
-                    // 2. Remove 1 item at that index
+                    // 2. Remove item at that index
                     projectData.splice(index, 1); 
                     
                     // 3. Save the now-shorter array
                     localStorage.setItem('projectTitles', JSON.stringify(projectData));
                 }
 
-                const todoIndex = toDoData.findIndex(item => item.id === currentTargetDiv.id);
-                if (todoIndex !== -1) {
-                    // 2. Remove 1 item at that index
-                    toDoData.splice(todoIndex, 1); 
-                    
-                    // 3. Save the now-shorter array
-                    localStorage.setItem('todos', JSON.stringify(toDoData));
-                }
-
+                for (let i = toDoData.length - 1; i >= 0; i--) {
+                        if (toDoData[i].id === currentTargetDiv.id) {
+                            toDoData.splice(i, 1);
+                        }
+                    }
+                localStorage.setItem('todos', JSON.stringify(toDoData));
+                
                 currentTargetDiv.remove();
                 pageContainer.removeChild(pageContainer.firstChild);
+                importantTabState();
+                upcomingTabState();
+                todayTabState();
                 warningModalObj.close();
                 currentTargetDiv = null;// Clean up after deletion
             }
@@ -139,7 +140,7 @@ function createPage(pageName, tabTitle, tabInfo){
             });
     } else {
         toDoData.forEach(data => {
-                    if(isTomorrow(data.dueDate)){
+                    if(isTomorrow(data[tabInfo])){
                         const todos = todoCard(data)
 
                         page.append(todos);
@@ -224,27 +225,27 @@ export function sideNavControl(){
             case 'today-tab':
                 console.log("today tab has been clicked");
                 removePageContainerChild();
-                createPage('todayTodosPage', 'Today Tasks', 'dueDate');
+                // createPage('todayTodosPage', 'Today Tasks', 'dueDate');
                 
                 break;
             case 'upcoming-tab':
                 console.log("upcoming tab has been clicked");
                 removePageContainerChild();
 
-                createPage('upcomingTodosPage', 'Upcoming Tasks');
+                // createPage('upcomingTodosPage', 'Upcoming Tasks', 'dueDate');
                 
                 break;
             case 'important-tab':
                 console.log("important tab has been clicked");
                 removePageContainerChild();
 
-                createPage('importantTodosPage','Important Tasks', 'priority')
+                // createPage('importantTodosPage','Important Tasks', 'priority')
 
                 break;
             case 'finished-tab':
                 console.log("finished tab has been clicked");
                 removePageContainerChild();
-                createPage('finishedTodosPage','Finished Tasks', 'status')
+                // createPage('finishedTodosPage','Finished Tasks', 'status')
 
                 break;
         }
