@@ -1,6 +1,7 @@
 import deleteIconSrc from '../assets/svgs/delete_icon.svg';
 import saveIconSrc from '../assets/svgs/save_icon.svg';
 import { noteData } from '../data/data.js';
+import { createProjectPage } from './project-page.js';
 
 export function createNoteCard(id) {
     // 1. Create Elements
@@ -72,7 +73,7 @@ export function createNoteCard(id) {
     });
 
     const secondaryId = crypto.randomUUID();
-    
+
     saveImg.addEventListener('click', () => {
         const title = noteTitle.value;
         const description = noteDescription.value;
@@ -87,6 +88,13 @@ export function createNoteCard(id) {
         localStorage.setItem('notes', JSON.stringify(noteData))
 
         alert('note saved!');
+        
+        const pageContainer = document.getElementById('project-page-container');
+        while (pageContainer.firstChild){
+                            pageContainer.removeChild(pageContainer.firstChild)
+                        };
+                        const currentPage = createProjectPage(id)
+                        pageContainer.append(currentPage)
     })
 
     // 3. Assemble the Card
