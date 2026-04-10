@@ -8,8 +8,6 @@ import { todoCard } from "./ui/to-do-card.js";
 const pageContainer = document.getElementById('project-page-container');
 import { format, isTomorrow, isPast, parseISO, compareAsc } from 'date-fns';
 
-
-
 function removePageContainerChild(){
     while (pageContainer.firstChild){
                     pageContainer.removeChild(pageContainer.firstChild)
@@ -98,8 +96,112 @@ export function addProjectWrapperAction() {
         });
 }
 
+function createPage(pageName, tabTitle, tabInfo){
+    const page = document.createElement('div');
+    page.id = pageName;
+    const span = document.createElement('span')
+    span.textContent = tabTitle;
 
+    Object.assign(span.style, {
+        fontWeight: 'bold',
+        fontSize: '26px',
+        color: 'var(--primaryTextColor)',
+        paddingBottom: '10px',
+        width: '1035px'
+    })
 
+    page.append(span);
+        Object.assign(page.style, {
+            display: 'flex',
+            flexDirection: 'column',
+            paddingTop: '20px'
+        })
+    pageContainer.append(page);
+
+    let compare = '';
+    const dateToday = format(new Date(), 'yyyy-MM-dd');
+
+    if(tabInfo === 'status'){
+        compare = 'done';
+    } else if (tabInfo === 'priority'){
+        compare = 'high'
+    } else if (tabInfo === 'dueDate') {
+        compare = dateToday;
+    }
+
+    if(pageName !== 'upcomingTodosPage'){
+        toDoData.forEach(data => {
+                if(data[tabInfo] === compare){
+                    const todos = todoCard(data)
+
+                    page.append(todos);
+                }
+            });
+    } else {
+        toDoData.forEach(data => {
+                    if(isTomorrow(data.dueDate)){
+                        const todos = todoCard(data)
+
+                        page.append(todos);
+                    }
+                })
+    }
+    
+}
+
+export function importantTabState(){
+    let importantValCounter = 0;
+    toDoData.forEach(data => {
+        if(data.priority === "high"){
+            importantValCounter++
+        }
+    })
+    function count(counter){
+        const importantVal = document.getElementById('importantTodos');
+    importantVal.textContent = counter;
+    }
+
+    count(importantValCounter)
+}
+
+importantTabState();
+
+export function todayTabState(){
+    let todayValCounter = 0;
+    const dateToday = format(new Date(), 'yyyy-MM-dd');
+    toDoData.forEach(data => {
+        if(data.dueDate === dateToday){
+            todayValCounter++;
+        }
+    })
+
+    function count(counter){
+        const todayVal = document.getElementById('todayTodos');
+        todayVal.textContent = counter;
+    }
+
+    count(todayValCounter)
+}
+
+todayTabState();
+
+export function upcomingTabState(){
+    let upcomingValCounter = 0;
+    toDoData.forEach(data => {
+    if(isTomorrow(data.dueDate)){
+        upcomingValCounter++
+        }
+    })
+
+    function count(counter){
+    const upcomingVal = document.getElementById('upcomingTodos');
+    upcomingVal.textContent = counter;
+    }
+
+    count(upcomingValCounter)
+}
+
+upcomingTabState();
 
 export function sideNavControl(){
     const addProjectIcon = document.getElementById('addProject_icon')
@@ -122,88 +224,27 @@ export function sideNavControl(){
             case 'today-tab':
                 console.log("today tab has been clicked");
                 removePageContainerChild();
-                const dateToday = format(new Date(), 'yyyy-MM-dd');
-
-                const todayTabPage = document.createElement('div');
-                Object.assign(todayTabPage.style, {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingTop: '20px'
-                })
-
-                pageContainer.append(todayTabPage);
-                toDoData.forEach(data => {
-                    if(data.dueDate === dateToday){
-                        const todos = todoCard(data)
-
-                        todayTabPage.append(todos);
-                    }
-                })
+                createPage('todayTodosPage', 'Today Tasks', 'dueDate');
                 
                 break;
             case 'upcoming-tab':
                 console.log("upcoming tab has been clicked");
                 removePageContainerChild();
 
-                const upcomingTabPage = document.createElement('div');
-                Object.assign(upcomingTabPage.style, {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingTop: '20px'
-                })
-
-                pageContainer.append(upcomingTabPage);
-
-                toDoData.forEach(data => {
-                    if(isTomorrow(data.dueDate)){
-                        const todos = todoCard(data)
-
-                        upcomingTabPage.append(todos);
-                    }
-                })
+                createPage('upcomingTodosPage', 'Upcoming Tasks');
                 
                 break;
             case 'important-tab':
                 console.log("important tab has been clicked");
                 removePageContainerChild();
 
-                const importantTabPage = document.createElement('div');
-                Object.assign(importantTabPage.style, {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingTop: '20px'
-                })
-
-                pageContainer.append(importantTabPage);
-                toDoData.forEach(data => {
-                    if(data.priority === 'high'){
-                        const todos = todoCard(data)
-
-                        importantTabPage.append(todos);
-                    }
-                });
+                createPage('importantTodosPage','Important Tasks', 'priority')
 
                 break;
             case 'finished-tab':
                 console.log("finished tab has been clicked");
-                
                 removePageContainerChild();
-
-                const finishedTabPage = document.createElement('div');
-                Object.assign(finishedTabPage.style, {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingTop: '20px'
-                })
-
-                pageContainer.append(finishedTabPage);
-                toDoData.forEach(data => {
-                    if(data.status === 'done'){
-                        const todos = todoCard(data)
-
-                        finishedTabPage.append(todos);
-                    }
-                });
+                createPage('finishedTodosPage','Finished Tasks', 'status')
 
                 break;
         }
