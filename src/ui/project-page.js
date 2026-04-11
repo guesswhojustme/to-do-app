@@ -13,24 +13,28 @@ export function createProjectPage (id){
 
     const toDoContainer = document.createElement('div');
     toDoContainer.id = 'to-do-container';
-
-    console.log(toDoContainer.id);
-    
     Object.assign(toDoContainer.style, {
         width: '680px',
-        height: '940px',
+        height: '930px',
         display: 'flex',
         flexDirection: 'column',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        scrollbarWidth: 'none'
     })
+
+     console.log(toDoContainer.id);
 
     const noteContainer = document.createElement('div')
     noteContainer.id = 'note-container'
-
     Object.assign(noteContainer.style, {
         width: '330px',
-        height: '940px',
+        height: '930px',
         display: 'flex',
         flexDirection: 'column',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        scrollbarWidth: 'none'
     })
 
     const todoController = createToDoControl(id);

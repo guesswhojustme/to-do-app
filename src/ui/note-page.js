@@ -6,7 +6,14 @@ export function createNoteControl(id) {
     // 1. Create the Control Header Div (The Main Return Element)
     const noteControl = document.createElement('div');
     noteControl.id = 'note-control';
-    
+    Object.assign(noteControl.style, {
+        position: 'sticky',
+        top: '0',          
+        backgroundColor: 'var(--backGroundColor)', 
+        zIndex: '10'
+    })
+
+
     // Applying styles for #note-control
     Object.assign(noteControl.style, {
         display: 'flex',

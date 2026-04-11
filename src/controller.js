@@ -1,5 +1,5 @@
 import { createProjectModal, createWarningModal } from "./ui/modals.js";
-import { projectData, toDoData } from "./data/data.js";
+import { projectData, toDoData, noteData } from "./data/data.js";
 import deleteIcon from "./assets/svgs/delete_icon.svg"
 const warningModalObj = createWarningModal();
 document.body.append(warningModalObj.dialog);
@@ -44,12 +44,21 @@ img.addEventListener('click', () => {
                     localStorage.setItem('projectTitles', JSON.stringify(projectData));
                 }
 
+                //deletes project's to do data
                 for (let i = toDoData.length - 1; i >= 0; i--) {
                         if (toDoData[i].id === currentTargetDiv.id) {
                             toDoData.splice(i, 1);
                         }
                     }
                 localStorage.setItem('todos', JSON.stringify(toDoData));
+                
+                //deletes project's note data
+                for (let i = noteData.length - 1; i >= 0; i--) {
+                        if (noteData[i].id === currentTargetDiv.id) {
+                            noteData.splice(i, 1);
+                        }
+                    }
+                localStorage.setItem('notes', JSON.stringify(noteData))
 
                 currentTargetDiv.remove();
                 pageContainer.removeChild(pageContainer.firstChild);

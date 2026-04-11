@@ -10,7 +10,11 @@ export function createToDoControl(id) {
     Object.assign(toDoControl.style, {
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'sticky',
+        top: '0',          
+        backgroundColor: 'var(--backGroundColor)', 
+        zIndex: '10'
     });
     toDoControl.addEventListener('click', () => {
         console.log(`to do control id: ${id}`);

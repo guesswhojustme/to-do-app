@@ -61,7 +61,7 @@ body{
 #todobody{
     display: flex;
     justify-content: center;
-    width: 1440px;
+    width: 1500px;
     height: 940px;
     gap: 25px;
     background-color: var(--backGroundColor);
@@ -641,5 +641,6 @@ dialog::backdrop {
     width: 300px;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 20px;
 }
 

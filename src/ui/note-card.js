@@ -143,14 +143,15 @@ export function renderNoteCard(data) {
     // 2. Add Hover Logic & Pointer
     deleteImg.style.cursor = 'pointer';
     deleteImg.style.transition = 'transform 0.2s, opacity 0.2s';
+    deleteImg.style.opacity = '0.7';
 
     deleteImg.addEventListener('mouseenter', () => {
-        deleteImg.style.opacity = '0.7';
+        deleteImg.style.opacity = '1';
     });
 
     deleteImg.addEventListener('mouseleave', () => {
         deleteImg.style.transform = 'scale(1)';
-        deleteImg.style.opacity = '1';
+        deleteImg.style.opacity = '0.7';
     });
 
     const uniqueID = data.secondaryId;
@@ -170,14 +171,15 @@ export function renderNoteCard(data) {
 
     saveImg.style.cursor = 'pointer';
     saveImg.style.transition = 'transform 0.2s, opacity 0.2s';
+    saveImg.style.opacity = '0.7';
 
     saveImg.addEventListener('mouseenter', () => {
-        saveImg.style.opacity = '0.7';
+        saveImg.style.opacity = '1';
     });
 
     saveImg.addEventListener('mouseleave', () => {
         saveImg.style.transform = 'scale(1)';
-        saveImg.style.opacity = '1';
+        saveImg.style.opacity = '0.7';
     });
 
     saveImg.addEventListener('click', () => {
